@@ -29,6 +29,6 @@ int main(){
     result += abs(distance[now] - distance[now+project[i]]);
     now += project[i];
   }
-  printf("%d\n",result);
+  printf("%d\n",result%100000);
   return 0;
 }

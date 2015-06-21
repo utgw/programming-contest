@@ -7,7 +7,6 @@ int main(){
   int n,m,input,now;
   int result;
   int distance[100000];
-  int project[100000];
 
   scanf("%d%d\n",&n,&m);
 
@@ -18,17 +17,15 @@ int main(){
     else distance[i+1] = distance[i] + input;
   }
 
+  result = now = 0;
+
   REP(i,m){
     scanf("%d\n",&input);
-    project[i] = input;
+    result += abs(distance[now] - distance[now+input]);
+    result %= 100000;
+    now += input;
   }
 
-  result = now = 0;
-  REP(i,m){
-    result += abs(distance[now] - distance[now+project[i]]);
-    result %= 100000;
-    now += project[i];
-  }
   printf("%d\n",result);
   return 0;
 }

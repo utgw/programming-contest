@@ -10,11 +10,10 @@ int main(){
 
   scanf("%d%d\n",&n,&m);
 
+  distance[0] = 0;
   REP(i,n-1){
     scanf("%d\n",&input);
-    distance[0] = 0;
-    if(i==0) distance[1] = input;
-    else distance[i+1] = distance[i] + input;
+    distance[i+1] = distance[i] + input;
   }
 
   result = now = 0;

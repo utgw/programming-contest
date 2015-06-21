@@ -1,4 +1,3 @@
-//TODO
 #include <cstdio>
 #include <cmath>
 #define REP(i,n) for(int i=0;i<n;i++)
@@ -27,8 +26,9 @@ int main(){
   result = now = 0;
   REP(i,m){
     result += abs(distance[now] - distance[now+project[i]]);
+    result %= 100000;
     now += project[i];
   }
-  printf("%d\n",result%100000);
+  printf("%d\n",result);
   return 0;
 }

@@ -1,8 +1,5 @@
-// TODO
-#include <iostream>
+#include <cstdio>
 #include <vector>
-#include <string>
-#include <sstream>
 #define REP(i,n) for(int i=0;i<n;i++)
 using namespace std;
 
@@ -11,39 +8,56 @@ vector<vector<bool>> visited;
 int w,h;
 int cnt=0;
 
-void solve(int x, int y){
-  const int direction[3][2] = {{1,1},{1,0},{0,1}}
-  visited[y][x]=true;
-  REP(i,3){
-    if((y+direction[i][0]<h)
-    &&(x+direction[i][1]<w)
-    &&(!visited[y+direction[i][0]][x+direction[i][1]])){
-      solve(x+direction[i][1],y+direction[i][0]);
+void paint(int x, int y){
+  const int vec[8][2] = {{1,0},{1,1},{0,1},{0,-1},{1,-1},{-1,-1},{-1,0},{-1,1}};
+  visited[y][x] = true;
+  REP(i,8){
+    if((y+vec[i][0]>=0)
+    &&(y+vec[i][0]<h)
+    &&(x+vec[i][1]>=0)
+    &&(x+vec[i][1]<w)
+    ){
+      if((movable[y+vec[i][0]][x+vec[i][1]])&&(!visited[y+vec[i][0]][x+vec[i][1]])) paint(x+vec[i][1],y+vec[i][0]);
     }
   }
-}
-
-vector<string> split(const string &str, char delim){
-  istringstream iss(str); string tmp; vector<string> res;
-  while(getline(iss, tmp, delim)) res.push_back(tmp);
-  return res;
+  return;
 }
 
 int main(){
   while(true){
-    cin >> w >> h;
+    scanf("%d%d\n",&w,&h);
     if(w==0) break;
 
     REP(i,h){
-      string str;
-      cin >> str;
+      char str[200];
+      gets(str);
       vector<bool> set;
-      for(string s : split(str,' ')) set.push_back(s=="1");
+      for(int i=0;str[i]!='\0';i++){
+        switch(str[i]){
+          case '1':
+            set.push_back(true);
+            break;
+          case '0':
+            set.push_back(false);
+            break;
+        }
+      }
       movable.push_back(set);
     }
     REP(i,h) visited.push_back(vector<bool>(w,false));
-    solve(0,0);
-    cout << cnt << endl;
+    // solve
+    REP(y,h){
+      REP(x,w){
+        if(visited[y][x]) continue;
+        if(movable[y][x]){
+          cnt++;
+          paint(x,y);
+        }else
+          visited[y][x] = true;
+      }
+    }
+    // end
+    printf("%d\n",cnt);
     cnt = 0;
     movable.erase(movable.begin(),movable.end());
     visited.erase(visited.begin(),visited.end());

@@ -1,7 +1,5 @@
-#include <iostream>
+#include <cstdio>
 using namespace std;
-
-// TODO
 
 int main(){
   while(true){
@@ -9,10 +7,8 @@ int main(){
     int b[4];
     int hit, blow;
     hit = blow = 0;
-
-    cin >> a[0] >> a[1] >> a[2] >> a[3];
-    cin >> b[0] >> b[1] >> b[2] >> b[3];
-    if(a[0] == a[1]) break;
+    if(scanf("%d%d%d%d\n",&a[0],&a[1],&a[2],&a[3])==EOF) break;
+    scanf("%d%d%d%d\n",&b[0],&b[1],&b[2],&b[3]);
 
     for(int i=0;i<4;i++){
       // if hit
@@ -28,7 +24,7 @@ int main(){
         }
       }
     }
-    cout << hit << " " << blow << endl;
+    printf("%d %d\n",hit,blow);
   }
   return 0;
 }

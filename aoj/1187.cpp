@@ -1,12 +1,9 @@
-#include <iostream>
 #include <vector>
-#include <cstring>
+#include <cstdio>
 #include <algorithm>
 #include <functional>
-#define range(i,n) for(int i=0;i<n;i++)
-#define xrange(i,n,t) for(int i=t;i<n;i++)
+#define range(i,n) for(int i=0;i<(int)(n);i++)
 #define drange(i,n,t) for(int i=t;i>n;i--)
-#define iter(type, var, cursor) for(vector<type>::iterator cursor = var.begin(); cursor != var.end(); cursor++)
 using namespace std;
 
 struct submission {
@@ -18,44 +15,22 @@ struct submission {
   minute(minute), team(team), problem(problem), accept(accept == 0) {}
 };
 
-struct contest {
-  int minute;
-  int team;
-  int problem;
-  int record;
-  vector<submission> submissions;
-  contest(int minute, int team, int problem, int record, vector<submission> submissions) :
-  minute(minute), team(team), problem(problem), record(record), submissions(submissions) {}
-};
-
 int main(void){
-  vector<contest> contests;
-
-  while(true){
+  while(1){
     int minute, team, problem, record;
     vector<submission> submissions;
-    cin >> minute >> team >> problem >> record;
+    scanf("%d%d%d%d",&minute,&team,&problem,&record);
     if(minute == 0) break;
     range(i,record){
       int m, t, p, a;
-      cin >> m >> t >> p >> a;
+      scanf("%d%d%d%d",&m,&t,&p,&a);
       submission sub(m, t-1, p-1, a);
       submissions.push_back(sub);
     }
-    contests.push_back(contest(minute, team, problem, record, submissions));
-  }
-
-  iter(contest, contests, cursor){
-    contest c = *cursor;
-    vector<submission> submissions = c.submissions;
-    int penalty[50];
-    int solved[50];
-    int wronganswer[50][10];
-    memset(penalty, 0, sizeof(penalty));
-    memset(solved, 0, sizeof(solved));
-    memset(wronganswer, 0, sizeof(wronganswer));
-    iter(submission, submissions, cur){
-      submission s = *cur;
+    int penalty[50]={0};
+    int solved[50]={0};
+    int wronganswer[50][10]={{0}};
+    for(submission s:submissions){
       if(s.accept){
         penalty[s.team] += s.minute + wronganswer[s.team][s.problem];
         solved[s.team]++;
@@ -63,10 +38,9 @@ int main(void){
         wronganswer[s.team][s.problem] += 20;
       }
     }
-    int rank[50];
-    memset(rank, 0, sizeof(rank));
-    range(i, c.team){
-      range(j, c.team){
+    int rank[50]={0};
+    range(i, team){
+      range(j, team){
         if(i == j) continue;
         if(solved[i] > solved[j] || (solved[i] == solved[j] && penalty[i] < penalty[j])){
           rank[i]++;
@@ -74,10 +48,9 @@ int main(void){
       }
     }
     vector<vector<int> > rankset;
-
     drange(i, *min_element(rank, rank+50)-1, *max_element(rank, rank+50)){
       vector<int> rs;
-      range(j, c.team){
+      range(j, team){
         if(i == rank[j])
           rs.push_back(j+1);
         }
@@ -86,20 +59,18 @@ int main(void){
         rankset.push_back(rs);
       }
     }
-
-    iter(vector<int>, rankset, cursor){
-      vector<int> rs = *cursor;
-      iter(int, rs, cur){
-        int r = *cur;
-        cout << r;
-        if(rs.size() > 1 && cur != rs.end()-1)
-          cout << "=";
+    range(i,rankset.size()){
+      vector<int> rs = rankset[i];
+      range(j,rs.size()){
+        int r = rs[j];
+        printf("%d",r);
+        if(rs.size() > 1 && j != (int)rs.size()-1)
+          printf("=");
       }
-      if(cursor != rankset.end()-1)
-        cout << ",";
+      if(i != (int)rankset.size()-1)
+        printf(",");
     }
-    cout << endl;
+    printf("\n");
   }
-
   return 0;
 }

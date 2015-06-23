@@ -1,6 +1,4 @@
-//TODO
 #include <cstdio>
-#include <vector>
 #include <cstring>
 #define REP(i,n) for(int i=0;i<n;i++)
 using namespace std;

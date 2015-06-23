@@ -5,7 +5,7 @@ int main(){
   while(1){
     int a,b,c,d,n;
     int way[16][16]={{0}};
-    bool flg;
+    bool flg=false;
     scanf("%d%d\n",&a,&b);
     if(a==0&&b==0)break;
     scanf("%d\n",&n);

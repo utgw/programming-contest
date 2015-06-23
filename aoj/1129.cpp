@@ -14,10 +14,8 @@ int main(){
       scanf("%d%d",&p,&c);
       vector<int> swap(c);
       REP(j,c)swap[j]=cards[p+j-1]; // 指定された範囲のカードを抜き取る
-      REP(j,p-1)cards[p+c-2-j]=cards[p-2-j];
+      REP(j,p-1)cards[p+c-2-j]=cards[p-2-j]; // 抜き取った分のカードをずらす
       REP(j,c)cards[j]=swap[j]; // 先頭にカードを入れる
-      REP(j,n)printf("%d ",cards[j]);
-      printf("\n");
     }
     printf("%d\n",cards[0]);
   }

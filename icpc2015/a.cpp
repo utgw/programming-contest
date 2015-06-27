@@ -21,4 +21,5 @@ int main(){
     }
     printf("%d\n",ans+1);
   }
+  return 0;
 }

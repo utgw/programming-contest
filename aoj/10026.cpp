@@ -1,52 +1,31 @@
-#include <vector>
-#include <iostream>
 #include <cstdio>
-#include <cstdlib>
 #include <cmath>
+#define FOR(i,m,n) for(int i=m;i<(int)(n);i++)
+#define REP(i,n) FOR(i,0,n)
+#define square(a) a*a
 
-#include <boost/algorithm/string.hpp>
-#include <boost/foreach.hpp>
-using namespace std;
-
-float sum(vector<float> data){
-  // 総和を計算
-  float s = 0;
-  BOOST_FOREACH(float d, data) s += d;
-  return s;
+int sum(int n, int data[]){
+  int res = 0;
+  REP(i,n)res += data[i];
+  return res;
 }
 
-float average(vector<float> data){
-  // 平均を計算
-  return sum(data)/data.size();
+double calculate(int k, int data[]){
+  int msdata[1000];
+  REP(i,k) msdata[i] = square(data[i]);
+  double average = sum(k,data)/(double)k;
+  double msaverage = sum(k,msdata)/(double)k;
+  return sqrt(msaverage - square(average));
 }
 
 int main(){
-  vector<vector<float>> dataset;
   while(true){
     int n;
-    string input;
-    vector<string> splitted;
-    vector<float> data;
-
-    scanf("%d\n",&n);
-    if(n == 0) break;
-    getline(cin, input);
-
-    boost::split(splitted, input, boost::is_space());
-    BOOST_FOREACH(string s, splitted)
-      data.push_back(atof(s.c_str()));
-    dataset.push_back(data);
-  }
-
-  BOOST_FOREACH(vector<float> data, dataset){
-    // 処理するよ
-    vector<float> data_s;
-    float davr = average(data);
-    davr *= davr;
-    BOOST_FOREACH(float d, data)
-      data_s.push_back(d*d);
-    float dms = average(data_s);
-    printf("%.8f\n",sqrt(dms - davr));
+    int data[1000];
+    scanf("%d",&n);
+    if(n==0)break;
+    REP(i,n) scanf("%d",&data[i]);
+    printf("%.10lf\n",calculate(n,data));
   }
   return 0;
 }

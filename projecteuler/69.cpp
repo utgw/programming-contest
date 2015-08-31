@@ -15,6 +15,6 @@ int main(){
     if(isprime(i)) res *= i;
   for(int i=2;res*i<=1000000;++i)
     res *= i;
-cout << res << endl;
+  cout << res << endl;
   return 0;
 }

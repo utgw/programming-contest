@@ -1,27 +1,18 @@
 #include <cstdio>
 #include <algorithm>
-#include <cstring>
-#define FOR(i,m,n) for(int i=m;i<(int)(n);i++)
-#define REP(i,m) FOR(i,0,m)
-
-const int maxdata = 100;
-int data[maxdata][maxdata];
-long memo[maxdata][maxdata];
-
-long dfs(int depth, int x){
-  if(memo[depth][x] != -1) return memo[depth][x];
-  int res;
-  if(depth == maxdata)
-    res = 0;
-  else
-    res = data[depth][x] + std::max(dfs(depth+1,x), dfs(depth+1,x+1));
-  return memo[depth][x] = res;
-}
+#define REP(i,n) for(int i=0;i<(int)(n);i++)
 
 int main(){
-  memset(data,0,sizeof(data));
-  memset(memo,-1,sizeof(memo));
+  const int maxdata = 100;
+  int data[maxdata][maxdata];
+  int res[maxdata][maxdata];
   REP(i,maxdata) REP(j,i+1) scanf("%02d",&data[i][j]);
-  printf("%ld\n",dfs(0,0));
+  REP(i,maxdata) res[maxdata-1][i] = data[maxdata-1][i];
+  for(int y=maxdata-2;y>=0;y--){
+    for(int x=0;x<=y;x++){
+      res[y][x] = data[y][x] + std::max(res[y+1][x],res[y+1][x+1]);
+    }
+  }
+  printf("%d\n",res[0][0]);
   return 0;
 }

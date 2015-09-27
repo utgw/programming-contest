@@ -5,11 +5,11 @@
 using namespace std;
 
 int binarysearch(int target, int array[], int left, int right){
-  int mid = (left + right) / 2;
-  if(left < right){
+  while(left < right){
+    int mid = (left + right) / 2;
     if(array[mid] == target) return mid;
-    else if(target < array[mid]) return binarysearch(target, array, left, mid);
-    else return binarysearch(target, array, mid+1, right);
+    else if(target < array[mid]) right = mid;
+    else left = mid + 1;
   }
   return -1;
 }

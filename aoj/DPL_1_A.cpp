@@ -1,29 +1,25 @@
-// TODO
-#include <cstdio>
-#include <algorithm>
-using namespace std;
-#define FOR(i,m,n) for(int i=m;i<(int)(n);i++)
+#include <bits/stdc++.h>
+#define FOR(i,m,n) for(int i=m;i<(n);i++)
 #define REP(i,n) FOR(i,0,n)
-const int MAX_N = 50001;
-const int inf = 1000000000;
-int N,M;
-int C[20];
+using namespace std;
 
-int ccp(){
-  int T[MAX_N];
-  REP(i,MAX_N) T[i] = inf;
-  T[0] = 0;
-  REP(i,M+2){
-    FOR(j,C[i],N+1){
-      T[j] = min(T[j],T[j-C[i]]+1);
-    }
-  }
-  return T[N];
+const int inf = 2147483647;
+
+int ccp(int coins[], int n, int price){
+  vector<int> dp(price+1,inf);
+  dp[0] = 0;
+  REP(i,price+1)
+    REP(j,n)
+      if(i - coins[j] >= 0)
+        dp[i] = min(dp[i-coins[j]]+1, dp[i]);
+  return dp[price];
 }
 
 int main(){
-  scanf("%d%d",&N,&M);
-  REP(i,M)scanf("%d",&C[i]);
-  printf("%d\n",ccp());
+  int n, m;
+  int c[20];
+  scanf("%d%d",&n,&m);
+  REP(i,m) scanf("%d",&c[i]);
+  printf("%d\n",ccp(c,m,n));
   return 0;
 }

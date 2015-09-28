@@ -3,6 +3,7 @@
 #define REP(i,n) FOR(i,0,n)
 using namespace std;
 const int inf = 2147483647;
+const double eps = 1e-8;
 
 int main(){
   const int nmax = 1000000;

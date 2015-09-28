@@ -1,15 +1,14 @@
-import re
 
-def input_as(T=str, num=2):
-    return [T(x) for x in re.split(r'\s+', input())]
+def input_as(T=[int]):
+    return [t(x) for t,x in zip(T, input().split(' '))]
 
 def main():
-    N, T = input_as(int)
+    N, T = input_as([int]*2)
     homework = []
     homeworkdiff = []
     homeworksum = 0
     for i in range(N):
-        a, b = input_as(int)
+        a, b = input_as([int]*2)
         homeworksum += b
         homeworkdiff.append(a - b)
     if homeworksum > T:

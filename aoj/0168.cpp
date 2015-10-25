@@ -9,7 +9,7 @@ int main(){
   while(1){
     int n,res;
     res=1;
-    scanf("%d\n",&n);
+    scanf("%d",&n);
     if(n==0) break;
     res += a[n-1]/3650;
     printf("%d\n",res);

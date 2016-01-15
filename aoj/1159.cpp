@@ -1,28 +1,28 @@
-#include <cstdio>
-#include <cstring>
-#define REP(i,n) for(int i=0;i<(int)(n);i++)
+#include <bits/stdc++.h>
+#define FOR(i,m,n) for(int i=m;i<(n);i++)
+#define REP(i,n) FOR(i,0,n)
+using namespace std;
 
-int main(){
-  while(true){
-    int n,p,wan,i;
-    int koishi[50];
-    memset(koishi,0,sizeof(koishi));
-    scanf("%d%d",&n,&p);
-    if(n==0) break;
-    wan = p;
-    for(i=0;;i=(i+1)%n){
-      if(wan == 0){
-        if(koishi[i] != 0){
-          wan = koishi[i];
-          koishi[i] = 0;
+int main(void){
+  int n,p;
+  while(cin>>n>>p,n!=0&&p!=0){
+    int wan=p;
+    vector<int> cds(n,0);
+    for(int i=0;;i=(i+1)%n){
+      if(wan==0){
+        if(cds[i]!=0){
+          wan = cds[i];
+          cds[i]=0;
         }
       }else{
         wan--;
-        koishi[i]++;
-        if(koishi[i] == p) break;
+        cds[i]++;
+        if(cds[i]==p){
+          cout<<i<<endl;
+          break;
+        }
       }
     }
-    printf("%d\n",i);
   }
   return 0;
 }

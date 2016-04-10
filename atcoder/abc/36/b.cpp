@@ -13,12 +13,7 @@ int main(void){
   vector<string> s(n);
   REP(i,n)cin>>s[i];
   REP(y,n){
-    REP(x,n){
-      if(y<n/2)
-        cout<<s[n-x-1][y];
-      else
-        cout<<s[n-x-1][y];
-    }
+    REP(x,n)cout<<s[n-x-1][y];
     cout<<endl;
   }
   return 0;

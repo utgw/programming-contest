@@ -8,12 +8,14 @@ const ll inf = INT_MAX;
 const double eps = 1e-8;
 const double pi = acos(-1.0);
 
-ll uruu(ll i){
-  return i/4-i/100+i/400;
-}
-
 int main(void){
-  ll a,b;cin>>a>>b;
-  cout<<uruu(b)-uruu(a-1)<<endl;
+  const int M=2025;
+  int n;cin>>n;
+  int d=M-n;
+  FOR(a,1,10){
+    int b=d/a;
+    if(a*b==d&&b<10)
+      cout<<a<<" x "<<b<<endl;
+  }
   return 0;
 }

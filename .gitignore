@@ -2,4 +2,4 @@
 *.out
 in.txt
 out.txt
-temp/
+tmp/

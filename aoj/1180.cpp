@@ -36,13 +36,13 @@ int main(void){
       bool ok=false;
       FOR(j,i+1,40){
         if(c[i]==c[j]){
-          ok=true;
           cout<<i<<" "<<c[i]<<" "<<j-i<<endl;
-          break;
+          goto ok;
         }
       }
-      if(ok)break;
     }
+    ok:
+    continue;
   }
   return 0;
 }

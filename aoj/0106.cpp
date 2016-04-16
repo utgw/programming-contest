@@ -8,20 +8,22 @@ const ll inf = INT_MAX;
 const double eps = 1e-8;
 const double pi = acos(-1.0);
 
-int dp[10000000];
-
 int main(void){
   int g;
-  const int w[6]={200,300,500,1000,1200,1500};
-  const int c[6]={380,550,850,380*5*80/100,550*4*85/100,850*3*88/100};
-  memset(dp,100000,sizeof dp);
-  dp[0]=0;
-  REP(i,5000)REP(j,6){
-    dp[i+w[j]]=min(dp[i],dp[i+w[j]]+c[j]);
-  }
-  // REP(i,10000000)cout<<dp[i]<<endl;
   while(cin>>g,g){
-    cout<<dp[g]<<endl;
+    int ans=inf;
+    REP(i,51){
+      REP(j,51){
+        REP(k,51){
+          if(200*i+300*j+500*k!=g)continue;
+          int wi=i/5,wj=j/4,wk=k/3;
+          int nwi=max(0,i-wi*5),nwj=max(0,j-wj*4),nwk=max(0,k-wk*3);
+          ans=min(ans,wi*1520+wj*1870+wk*2244+nwi*380+nwj*550+nwk*850);
+          // cout<<i<<","<<j<<","<<k<<","<<ans<<endl;
+        }
+      }
+    }
+    cout<<ans<<endl;
   }
   return 0;
 }

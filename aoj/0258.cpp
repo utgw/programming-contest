@@ -21,13 +21,13 @@ int main(void){
       // i is wrong
       if(s[i+1]==s[i+2]&&s[i+2]==s[i+3]&&s[i]!=s[i+1])ans=a[i];
       // i+1 is wrong
-      else if(s[i+2]==s[i+3]&&s[i]!=s[i+2]&&s[i+1]!=s[i+2])ans=a[i+1];
+      if(s[i+2]==s[i+3]&&s[i]!=s[i+2]&&s[i+1]!=s[i+2])ans=a[i+1];
       // i+2 is wrong
-      else if(s[i]==s[i+3]&&s[i+1]!=s[i]&&s[i+2]!=s[i])ans=a[i+2];
+      if(s[i]==s[i+3]&&s[i+1]!=s[i]&&s[i+2]!=s[i])ans=a[i+2];
       // i+3 is wrong
-      else if(s[i]==s[i+1]&&s[i+2]!=s[i]&&s[i+3]!=s[i])ans=a[i+3];
+      if(s[i]==s[i+1]&&s[i+2]!=s[i]&&s[i+3]!=s[i])ans=a[i+3];
       // i+4 is wrong
-      else if(s[i]==s[i+1]&&s[i+1]==s[i+2]&&s[i]!=s[i+3])ans=a[i+4];
+      if(s[i]==s[i+1]&&s[i+1]==s[i+2]&&s[i]!=s[i+3])ans=a[i+4];
     }
     cout<<ans<<endl;
   }

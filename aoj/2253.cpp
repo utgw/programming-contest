@@ -7,45 +7,42 @@ typedef long long ll;
 const ll inf = INT_MAX;
 const double eps = 1e-8;
 const double pi = acos(-1.0);
-const int di[][2] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{-1,1},{1,-1}};
+// const int di[][2] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{-1,1},{-1,-1}};
+const int di[][2] = {{0,1},{1,1},{1,0},{0,-1},{-1,-1},{-1,0}};
 
-struct status {
-  int y;
-  int x;
-  int turn;
-};
+const int geta = 100;
 
 int main(void){
   int t,n;
   while(cin>>t>>n,t){
-    char masu[64][64];
-    memset(masu,'.',sizeof masu);
+    vector<vector<int>> masu(300, vector<int>(300));
     REP(i,n){
       int x,y;cin>>x>>y;
-      masu[x+32][y+32]='#';
+      masu[x+geta][y+geta]=1;
     }
     int sx,sy;cin>>sx>>sy;
-    queue<status> q;
-    int ans=0;
-    q.push({sx+32,sy+32,0});
-    while(!q.empty()){
-      auto a=q.front();q.pop();
-      masu[a.y][a.x]='*';
-      if(a.turn>t)continue;
-      ans++;
-      REP(i,6){
-        int dx=a.x+di[i][0],dy=a.y+di[i][1];
-        if(dx>=0&&dx<64&&dy>=0&&dy<64&&masu[dy][dx]=='.'){
-          q.push({dy,dx,a.turn+1});
-          masu[dy][dx]='*';
+    sx+=geta;
+    sy+=geta;
+    queue<tuple<int,int,int>> next;
+    next.push(make_tuple(sx,sy,t));
+    masu[sx][sy]=-1;
+    int answer=0;
+    while(!next.empty()){
+      auto a=next.front();next.pop();
+      int x,y,turn;
+      tie(x,y,turn)=a;
+      // cout<<turn<<endl;
+      // cout<<x<<","<<y<<endl;
+      answer++;
+      REP(j,6){
+        int nx=x+di[j][0],ny=y+di[j][1];
+        if(masu[nx][ny]==0&&turn>0){
+          next.push(make_tuple(nx,ny,turn-1));
+          masu[nx][ny]=-1;
         }
       }
     }
-    // REP(i,64){
-    //   REP(j,64)cout<<masu[i][j];
-    //   cout<<endl;
-    // }
-    cout<<ans<<endl;
+    cout<<answer<<endl;
   }
   return 0;
 }

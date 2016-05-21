@@ -1,3 +1,4 @@
+// Verified: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A
 struct edge {
   int from;
   int to;

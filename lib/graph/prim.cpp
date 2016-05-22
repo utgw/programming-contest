@@ -8,7 +8,11 @@ struct edge {
 
 namespace std{
   bool operator< (const edge& lhs, const edge& rhs){
-    return lhs.cost>rhs.cost;
+    return lhs.cost<rhs.cost;
+  }
+
+  bool operator> (const edge& lhs, const edge& rhs){
+    return !(lhs.cost<rhs.cost);
   }
 }
 
@@ -19,7 +23,7 @@ ll prim(graph G){
   const int v=G.size();
   ll ans=0;
   set<int> nodes;
-  priority_queue<edge> edges;
+  priority_queue<edge,vector<edge>,greater<edge>> edges;
   nodes.insert(0);
   for(edge& a:G[0]){
     edges.push(a);

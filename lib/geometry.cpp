@@ -169,6 +169,17 @@ struct Circle {
   Circle (const Point& p, ld r) : p(p), r(r) {}
 };
 
+// 2円c1, c2の共通接線の本数(交差するかどうか)
+// Verified: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_7_A
+int intersectCC (const Circle& c1, const Circle& c2) {
+  ld dist = abs(c1.p - c2.p);
+  if (dist > c1.r + c2.r) return 4;
+  if (abs(dist - (c1.r + c2.r)) < eps) return 3;
+  if (dist < c1.r + c2.r && dist > abs(c1.r - c2.r)) return 2;
+  if (abs(dist - abs(c1.r - c2.r)) < eps) return 1;
+  return 0;
+}
+
 // 2円c1, c2の交点
 // Verified: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_7_E
 vector<Point> crosspointCC (const Circle& c1, const Circle& c2) {
@@ -200,16 +211,12 @@ vector<Point> crosspointCL (const Circle& c, const Line& l) {
   return result;
 }
 
-int main(void) {
-  vector<Circle> cs;
-  REP(i,2){
-    ld cx, cy, r;
-    cin >> cx >> cy >> r;
-    cs.push_back(Circle(Point(cx, cy), r));
+// 円cと線分sの交点
+vector<Point> crosspointCS (const Circle& c, const Line& s) {
+  vector<Point> v = crosspointCL(c, s), result;
+  for (int i = 0; i < v.size(); ++i) {
+    if (ccw(s[0], v[i], s[1]) == 2) result.push_back(v[i]);
   }
-  vector<Point> result = crosspointCC(cs[0], cs[1]);
-  cout << fixed << setprecision(15);
-  cout << real(result[0]) << " " << imag(result[0]) << " ";
-  cout << real(result[1]) << " " << imag(result[1]) << endl;
-  return 0;
+  sort(result.begin(), result.end());
+  return result;
 }

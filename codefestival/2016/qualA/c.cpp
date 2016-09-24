@@ -27,7 +27,7 @@ int main(void){
     if (i == (int)s.size() - 1)
       cout << roll(s[i], k);
     else if (k >= alpha_distance(s[i])) {
-      cout << roll(s[i], alpha_distance(s[i]));
+      cout << 'a';
       k -= alpha_distance(s[i]);
     } else {
       cout << s[i];

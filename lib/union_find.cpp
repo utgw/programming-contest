@@ -1,10 +1,8 @@
 // Verified: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A
 struct union_find {
-  vector<int> par;
-  vector<int> rank;
-
   union_find (int n) : par(n), rank(n, 0) {
-    REP(i,n)par[i]=i;
+    for (int i = 0; i < n; i++)
+      par[i] = i;
   }
 
   int find (int x) {
@@ -33,4 +31,8 @@ struct union_find {
         rank[x]++;
     }
   }
+
+  private:
+  vector<int> par;
+  vector<int> rank;
 };
